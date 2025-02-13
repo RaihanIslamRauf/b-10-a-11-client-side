@@ -8,7 +8,7 @@ const MainLayout = () => {
         <nav className='w-full mx-auto'>
         <Navbar></Navbar>
         </nav>
-        <main className='flex-grow lg:w-full mx-auto'>
+        <main className='flex-grow lg:w-full mx-auto bg-gray-900'>
         <Outlet></Outlet>
         </main>
         <Footer></Footer>

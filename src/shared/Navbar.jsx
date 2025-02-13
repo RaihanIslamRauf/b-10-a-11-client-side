@@ -1,5 +1,5 @@
 import { FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
@@ -50,15 +50,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-2 items-center">
-            <div className="flex gap-2">
-              <NavLink
-                to="/login"
-                className="btn bg-red-6 bg-red-600
-                00 border-none font-bold text-[14px] text-white"
-              >
-                Login
-              </NavLink>
-            </div>
+             <Link to="/register"><button className="btn bg-red-600 border-none text-white font-bold">Register</button></Link>
         </div>
     </div>)
 };
