@@ -18,7 +18,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm font-bold dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm font-bold dropdown-content bg-black text-white rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <NavLink className={navLinkStyle} to="/">
               Home
@@ -53,7 +53,8 @@ const Navbar = () => {
             <div className="flex gap-2">
               <NavLink
                 to="/login"
-                className="btn bg-red-500 border-none font-bold text-[14px] text-white"
+                className="btn bg-red-6
+                00 border-none font-bold text-[14px] text-white"
               >
                 Login
               </NavLink>

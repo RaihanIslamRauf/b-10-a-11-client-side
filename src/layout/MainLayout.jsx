@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../shared/Navbar";
+import Footer from "../shared/Footer";
 
 const MainLayout = () => {
     return (
@@ -10,6 +11,7 @@ const MainLayout = () => {
         <main className='flex-grow lg:w-full px-6 py-12 mx-auto bg-base-200'>
         <Outlet></Outlet>
         </main>
+        <Footer></Footer>
     </div>
     );
 };
