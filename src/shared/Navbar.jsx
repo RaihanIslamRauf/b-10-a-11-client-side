@@ -53,7 +53,7 @@ const Navbar = () => {
             <div className="flex gap-2">
               <NavLink
                 to="/login"
-                className="btn bg-red-6
+                className="btn bg-red-6 bg-red-600
                 00 border-none font-bold text-[14px] text-white"
               >
                 Login
