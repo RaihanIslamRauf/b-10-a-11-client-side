@@ -1,8 +1,23 @@
 import { FaBars } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext/AuthContext";
 
 const Navbar = () => {
+
+  const { user, signOutUser } = useContext(AuthContext);
+
+  const handleSignOut = () => {
+      signOutUser()
+          .then(() => {
+              console.log('successful sign out')
+          })
+          .catch(error => {
+              console.log('failed to sign out .stay here. dont leave me alone',error)
+          })
+  }
+
     
     const navLinkStyle = ({ isActive }) =>
         `font-bold text-[14px] ${
@@ -50,7 +65,16 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end gap-2 items-center">
-             <Link to="/register"><button className="btn bg-red-600 border-none text-white font-bold">Register</button></Link>
+      {
+                    user ? <>
+                        <button onClick={handleSignOut} className="btn">Sign out</button>
+                    </> : <>
+                        <Link to="/register"><button className="btn bg-red-600 text-white">Register</button></Link>
+                        <Link to="/signIn">
+                            <button className="btn bg-red-600 text-white">Sign In</button>
+                        </Link>
+                    </>
+                }
         </div>
     </div>)
 };
