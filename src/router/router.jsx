@@ -5,6 +5,10 @@ import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
 import SignIn from "../pages/SignIn/SignIn";
+import Dashboard from "../pages/DashBoard/Dashboard";
+import AddMarathon from "../pages/AddMarathon/AddMarathon";
+import MyMarathonList from "../pages/MyMarathonList/MyMarathonList";
+import MyApplyList from "../pages/MyApplyList/MyApplyList";
 
   const router = createBrowserRouter([
     {
@@ -23,6 +27,24 @@ import SignIn from "../pages/SignIn/SignIn";
         {
           path: "signIn",
           element: <SignIn></SignIn>
+        },
+        {
+          path: "dashboard",
+          element: <Dashboard></Dashboard>,
+          children: [
+            {
+              path: "add-marathon",
+              element: <AddMarathon></AddMarathon>
+            },
+            {
+              path: "my-marathons",
+              element: <MyMarathonList></MyMarathonList>
+            },
+            {
+              path: "my-apply-list",
+              element: <MyApplyList></MyApplyList>
+            }
+          ]
         }
       ]
     },
