@@ -1,13 +1,17 @@
-import Lottie from "lottie-react";
 import { useContext, useState } from "react";
-import registerLottieData from "../../assets/lottie/register.json";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Swal from "sweetalert2";
+import Lottie from "lottie-react";
+import registerAnimation from "../../assets/lottie/register.json"
 import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../../shared/SocialLogin";
-import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [error, setError] = useState({});
   const { createUser } = useContext(AuthContext);
+  const [error, setError] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const validatePassword = (password) => {
     const errors = [];
@@ -23,21 +27,18 @@ const Register = () => {
     return errors;
   };
 
-  const handleRegister = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    let photoURL = form.photoURL.value;
-    const password = form.password.value;
-
-    if (!photoURL) {
-      photoURL = "https://via.placeholder.com/150"; // Default image URL
+    const form = new FormData(e.target);
+    const name = form.get("name");
+    if (name.length < 5) {
+      setError({ ...error, name: "Name must be more than 5 characters long." });
+      return;
     }
+    const email = form.get("email");
+    const photo = form.get("photo");
+    const password = form.get("password");
 
-    console.log("User Info:", { name, email, photoURL, password });
-
-    // Password validation
     const passwordErrors = validatePassword(password);
     if (passwordErrors.length > 0) {
       setError({ ...error, password: passwordErrors.join(" ") });
@@ -46,90 +47,134 @@ const Register = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
+         
+        const createdAt = result?.user?.metadata?.creationTime;
+
+        const newUser = {
+          name,
+          email,
+          photo,
+          createdAt
+        };
+        
+        return fetch(`http://localhost:5000/users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        });
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success!",
+            text: "Your account has been created successfully!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then(() => {
+            navigate("/signIn"); // Navigate to the login page
+          });
+        }
       })
       .catch((error) => {
-        console.log(error.message);
+        console.error("Error during registration:", error);
+        Swal.fire({
+          title: "Error!",
+          text: "Registration failed. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       });
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left w-96">
-          <Lottie animationData={registerLottieData}></Lottie>
-        </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <h1 className="mt-4 text-4xl text-center font-bold text-white">
-            Register Here
-          </h1>
-          <form onSubmit={handleRegister} className="card-body">
-            {/* Name Input */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Full Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                name="name"
-                className="input input-bordered"
-                required
-              />
-            </div>
-
-            {/* Email Input */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                placeholder="Enter your email"
-                name="email"
-                className="input input-bordered"
-                required
-              />
-            </div>
-
-            {/* Photo URL Input */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Photo URL</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Enter profile photo URL"
-                name="photoURL"
-                className="input input-bordered"
-              />
-            </div>
-
-            {/* Password Input */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                placeholder="Enter your password"
-                name="password"
-                className="input input-bordered"
-                required
-              />
-            </div>
-            <div className="form-control mt-6">
-              <button className="btn bg-red-600 text-white">Register</button>
-            </div>
-          </form>
-          <SocialLogin></SocialLogin>
-          <p className="text-center font-semibold mb-2">
+    <div className="min-h-screen bg-base-200 p-4 flex flex-col md:flex-row justify-center items-center gap-10">
+      <div className="card bg-base-100 w-full max-w-lg shrink-0 rounded-md p-10">
+        <h2 className="text-2xl font-bold text-white text-center">
+          Register your account
+        </h2>
+        <form onSubmit={handleSubmit} className="card-body">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Name</span>
+            </label>
+            <input
+              name="name"
+              type="text"
+              placeholder="name"
+              className="input input-bordered"
+              required
+            />
+          </div>
+          {error.name && (
+            <label className="label text-xs text-red-500">{error.name}</label>
+          )}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Photo URL</span>
+            </label>
+            <input
+              name="photo"
+              type="text"
+              placeholder="photo-url"
+              className="input input-bordered"
+              required
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input
+              name="email"
+              type="email"
+              placeholder="email"
+              className="input input-bordered"
+              required
+            />
+          </div>
+          <div className="form-control relative">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="password"
+              className="input input-bordered pr-10"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-2/3 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+          {error.password && (
+            <label className="label text-xs text-red-600">
+              {error.password}
+            </label>
+          )}
+          <div className="form-control mt-6">
+            <button className="btn bg-red-600 rounded-md text-white">
+              Register
+            </button>
+          </div>
+        </form>
+        <SocialLogin></SocialLogin>
+        <p className="text-center font-semibold">
           Already have An Account?{" "}
-          <Link to="/signIn" className="text-[#FF5103]">
+          <Link to="/signIn" className="text-red-600">
             Login
           </Link>
         </p>
-        </div>
+      </div>
+      <div className="w-full max-w-md">
+        <Lottie animationData={registerAnimation} loop={true} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="bg-base-200 p-4 w-1/4 h-screen shadow-lg">
+    <div className="bg-base-200 p-4 w-1/4 min-h-screen shadow-lg">
       <ul className="space-y-4">
         <li>
           <Link to="/dashboard/add-marathon" className="btn bg-red-600 text-white w-full">
@@ -11,12 +11,12 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/dashboard/my-marathons" className="btn bg-blue-500 text-white w-full">
+          <Link to="/dashboard/my-marathons" className="btn bg-red-600 text-white w-full">
             📜 My Marathon List
           </Link>
         </li>
         <li>
-          <Link to="/dashboard/my-apply-list" className="btn bg-green-500 text-white w-full">
+          <Link to="/dashboard/my-apply-list" className="btn bg-red-600 text-white w-full">
             ✅ My Apply List
           </Link>
         </li>

@@ -1,39 +1,56 @@
 import Lottie from 'lottie-react';
 import { useContext } from 'react';
-import loginLottieJSON from '../../assets/lottie/login.json'
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // Import SweetAlert2
+import loginLottieJSON from '../../assets/lottie/login.json';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import SocialLogin from '../../shared/SocialLogin';
 import { Link } from 'react-router-dom';
 
-
 const SignIn = () => {
     const { singInUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleSignIn = e => {
+    const handleSignIn = async (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
 
-        singInUser(email, password)
-            .then(result => {
-                console.log('sign in', result.user)
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        try {
+            const result = await singInUser(email, password);
+            console.log('Signed in:', result.user);
 
-    }
+            // ✅ Show SweetAlert success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful!',
+                text: 'Welcome back!',
+                showConfirmButton: false,
+                timer: 2000
+            });
+
+            // ⏩ Redirect to homepage after delay
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+
+        } catch (error) {
+            console.log(error);
+
+            // ❌ Show SweetAlert error message
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Invalid email or password!',
+            });
+        }
+    };
 
     return (
-        <div className="hero bg-base-200 min-h-screen">
-            <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left w-96">
-                    <Lottie animationData={loginLottieJSON}></Lottie>
-                </div>
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                    <h1 className="mt-4 text-4xl text-center font-bold text-white">Login Here</h1>
+        <div className="min-h-screen bg-base-200 p-4 flex flex-col md:flex-row justify-center items-center gap-10">
+                <div className="card bg-base-100 w-full max-w-lg shrink-0 rounded-md p-10">
+                    <h1 className="mt-4 text-2xl text-center font-bold text-white">Login Here</h1>
                     <form onSubmit={handleSignIn} className="card-body">
                         <div className="form-control">
                             <label className="label">
@@ -46,7 +63,6 @@ const SignIn = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            
                         </div>
                         <div className="form-control mt-6">
                             <button className="btn bg-red-600 text-white">Login</button>
@@ -54,13 +70,15 @@ const SignIn = () => {
                     </form>
                     <SocialLogin></SocialLogin>
                     <p className="text-center font-semibold mb-2">
-                      Dont`t have An Account?{" "}
+                        Dont have an account?{" "}
                         <Link to="/register" className="text-[#FF5103]">
                             Register
                         </Link>
                     </p>
                 </div>
-            </div>
+                <div className="w-full max-w-md">
+        <Lottie animationData={loginLottieJSON} loop={true} />
+      </div>
         </div>
     );
 };
