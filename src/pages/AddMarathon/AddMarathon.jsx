@@ -115,7 +115,7 @@ const AddMarathon = () => {
         </div>
         
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Submit</button>
+          <button className="btn bg-red-600 text-white">Submit</button>
         </div>
       </form>
     </div>

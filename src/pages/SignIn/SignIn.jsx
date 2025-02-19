@@ -8,7 +8,7 @@ import SocialLogin from '../../shared/SocialLogin';
 import { Link } from 'react-router-dom';
 
 const SignIn = () => {
-    const { singInUser } = useContext(AuthContext);
+    const { signInUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSignIn = async (e) => {
@@ -18,7 +18,7 @@ const SignIn = () => {
         const password = form.password.value;
 
         try {
-            const result = await singInUser(email, password);
+            const result = await signInUser(email, password);
             console.log('Signed in:', result.user);
 
             // ✅ Show SweetAlert success message

@@ -29,39 +29,39 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError({}); 
+  
     const form = new FormData(e.target);
     const name = form.get("name");
-    if (name.length < 5) {
-      setError({ ...error, name: "Name must be more than 5 characters long." });
-      return;
-    }
     const email = form.get("email");
     const photo = form.get("photo");
     const password = form.get("password");
-
-    const passwordErrors = validatePassword(password);
-    if (passwordErrors.length > 0) {
-      setError({ ...error, password: passwordErrors.join(" ") });
+  
+    if (name.length < 5) {
+      setError({ name: "Name must be more than 5 characters long." });
       return;
     }
-
-    createUser(email, password)
+  
+    const passwordErrors = validatePassword(password);
+    if (passwordErrors.length > 0) {
+      setError({ password: passwordErrors.join(" ") });
+      return;
+    }
+  
+    createUser(email, password, name, photo)
       .then((result) => {
-         
-        const createdAt = result?.user?.metadata?.creationTime;
-
+        const createdAt = result?.metadata?.creationTime;
+  
         const newUser = {
           name,
           email,
           photo,
-          createdAt
+          createdAt,
         };
-        
+  
         return fetch(`http://localhost:5000/users`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newUser),
         });
       })
@@ -74,7 +74,7 @@ const Register = () => {
             icon: "success",
             confirmButtonText: "OK",
           }).then(() => {
-            navigate("/signIn"); // Navigate to the login page
+            navigate("/signIn"); 
           });
         }
       })
@@ -88,7 +88,7 @@ const Register = () => {
         });
       });
   };
-
+  
   return (
     <div className="min-h-screen bg-base-200 p-4 flex flex-col md:flex-row justify-center items-center gap-10">
       <div className="card bg-base-100 w-full max-w-lg shrink-0 rounded-md p-10">

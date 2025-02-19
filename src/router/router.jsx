@@ -9,6 +9,8 @@ import Dashboard from "../pages/DashBoard/Dashboard";
 import AddMarathon from "../pages/AddMarathon/AddMarathon";
 import MyMarathonList from "../pages/MyMarathonList/MyMarathonList";
 import MyApplyList from "../pages/MyApplyList/MyApplyList";
+import Marathons from "../pages/Marathons/Marathons";
+import PrivateRoute from "./PrivateRoute";
 
   const router = createBrowserRouter([
     {
@@ -27,6 +29,10 @@ import MyApplyList from "../pages/MyApplyList/MyApplyList";
         {
           path: "signIn",
           element: <SignIn></SignIn>
+        },
+        {
+          path: "marathons",
+          element: <PrivateRoute><Marathons></Marathons></PrivateRoute>
         },
         {
           path: "dashboard",
