@@ -38,7 +38,7 @@ const Banner = () => {
       >
         {images.map((img, index) => (
           <div key={index} className="min-w-full relative">
-            <img src={img} className="w-full h-[400px] object-cover" alt={`Slide ${index + 1}`} />
+            <img src={img}   style={{ objectPosition: "50% 20%" }}  className="w-full h-[400px] object-cover" alt={`Slide ${index + 1}`} />
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white text-center">
               <h2 className="text-3xl font-bold">{captions[index].title}</h2>
               <p className="text-lg mt-2">{captions[index].text}</p>
