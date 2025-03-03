@@ -11,12 +11,13 @@ import MyMarathonList from "../pages/MyMarathonList/MyMarathonList";
 import MyApplyList from "../pages/MyApplyList/MyApplyList";
 import Marathons from "../pages/Marathons/Marathons";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: <MainLayout></MainLayout>,
-      errorElement: <h2>Route Not found</h2>,
+      errorElement: <ErrorPage></ErrorPage>,
       children: [
         {
           path: "/",
