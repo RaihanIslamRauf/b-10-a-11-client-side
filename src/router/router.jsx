@@ -13,6 +13,7 @@ import Marathons from "../pages/Marathons/Marathons";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import MarathonDetails from "../pages/Marathons/MarathonDetails";
+import MarathonRegister from "../pages/Marathons/MarathonRegister";
 
   const router = createBrowserRouter([
     {
@@ -40,6 +41,11 @@ import MarathonDetails from "../pages/Marathons/MarathonDetails";
           path: "/marathons/:id",
           element: <PrivateRoute><MarathonDetails></MarathonDetails></PrivateRoute>,
         },
+        {
+          path: "/register/:id",
+          element: <PrivateRoute><MarathonRegister></MarathonRegister></PrivateRoute>,
+        },
+        
         {
           path: "dashboard",
           element: <Dashboard></Dashboard>,
