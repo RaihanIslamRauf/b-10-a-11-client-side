@@ -12,6 +12,7 @@ import MyApplyList from "../pages/MyApplyList/MyApplyList";
 import Marathons from "../pages/Marathons/Marathons";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import MarathonDetails from "../pages/Marathons/MarathonDetails";
 
   const router = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
         {
           path: "marathons",
           element: <PrivateRoute><Marathons></Marathons></PrivateRoute>
+        },
+        {
+          path: "/marathons/:id",
+          element: <PrivateRoute><MarathonDetails></MarathonDetails></PrivateRoute>,
         },
         {
           path: "dashboard",
