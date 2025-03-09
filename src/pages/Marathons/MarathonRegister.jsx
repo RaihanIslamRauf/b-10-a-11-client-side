@@ -54,7 +54,7 @@ const MarathonRegister = () => {
         const registrationData = {
             marathonId: id,
             marathonTitle: marathon.title,
-            startDate: marathon.marathonStartDate, // Fixed the start date field
+            startDate: marathon.marathonStartDate, 
             email: user.email,
             ...formData,
         };
@@ -75,7 +75,7 @@ const MarathonRegister = () => {
             });
 
             alert("Registration Successful!");
-            navigate("/dashboard/my-apply");
+            navigate("/dashboard/my-apply-list");
         } catch (err) {
             alert(err.message);
         }
@@ -85,13 +85,12 @@ const MarathonRegister = () => {
     if (error) return <p className="text-red-500">{error}</p>;
     if (!marathon) return <p>Marathon not found.</p>;
 
-    const formattedStartDate = new Date(marathon.marathonStartDate).toDateString(); // Format the marathon start date
+    const formattedStartDate = new Date(marathon.marathonStartDate).toDateString(); 
 
     return (
         <div className="max-w-lg mx-auto bg-base-100 shadow-md rounded-lg p-6 mt-10 mb-10">
             <h2 className="text-2xl font-bold text-gray-100 mb-4">Register for {marathon.title}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Read-Only Fields */}
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
