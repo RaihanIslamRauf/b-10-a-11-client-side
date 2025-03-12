@@ -6,8 +6,10 @@ import Lottie from "lottie-react";
 import registerAnimation from "../../assets/lottie/register.json"
 import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../../shared/SocialLogin";
+import useTitle from "../../hooks/useTitle";
 
 const Register = () => {
+  useTitle();
   const { createUser } = useContext(AuthContext);
   const [error, setError] = useState({});
   const [showPassword, setShowPassword] = useState(false);

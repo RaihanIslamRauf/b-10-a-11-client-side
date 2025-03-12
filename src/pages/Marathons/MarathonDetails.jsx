@@ -1,9 +1,11 @@
 import { useEffect, useState} from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 
 const MarathonDetails = () => {
+    useTitle();
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -38,9 +40,9 @@ const MarathonDetails = () => {
             <h1 className="text-3xl text-gray-100 font-bold mt-4">{marathon.title}</h1>
             <p className="flex items-center gap-2 text-gray-300"> <FaMapMarkerAlt className="text-red-400" />  {marathon.location}</p>
             <p className="text-gray-400">
-                Registration: {marathon.startDate} - {marathon.endDate}
+                Registration: {marathon.startRegistrationDate} - {marathon.endRegistrationDate}
             </p>
-            <p className="text-lg font-semibold">Total Registrations: {marathon.registrationCount}</p>
+            <p className="text-lg font-semibold">Total Registrations: {marathon.totalRegistrations || 0}</p>
 
             <button
                 onClick={() => navigate(`/register/${marathon._id}`)}

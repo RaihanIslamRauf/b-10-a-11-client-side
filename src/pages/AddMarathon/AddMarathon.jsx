@@ -4,19 +4,21 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useTitle from "../../hooks/useTitle";
 
 const AddMarathon = () => {
+  useTitle();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [startRegDate, setStartRegDate] = useState(null);
   const [endRegDate, setEndRegDate] = useState(null);
   const [marathonStartDate, setMarathonStartDate] = useState(null);
 
-  const handleAddMarathon = (e) => {
+  const handleAddMarathon = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
-    
+
     const newMarathon = {
       ...initialData,
       startRegistrationDate: startRegDate,
@@ -26,32 +28,38 @@ const AddMarathon = () => {
       totalRegistrationCount: 0,
       createdBy: user?.email,
     };
-    
-    fetch("http://localhost:5000/marathons", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newMarathon),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Marathon event has been added.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/myMarathons");
-        }
+
+    try {
+      const response = await fetch("http://localhost:5000/marathons", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMarathon),
       });
+
+      const data = await response.json();
+      if (data.insertedId) {
+        Swal.fire({
+          title: "Success!",
+          text: "Marathon event has been added.",
+          icon: "success",
+          confirmButtonColor: "#d32f2f",
+        }).then(() => navigate("/marathons"));
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonColor: "#d32f2f",
+      });
+    }
   };
 
   return (
     <div>
-      <h2 className="text-3xl">Create a Marathon Event</h2>
+      <h2 className="text-3xl text-white font-semibold">Create a Marathon Event</h2>
       <form onSubmit={handleAddMarathon} className="card-body">
         <div className="form-control">
           <label className="label">
@@ -59,7 +67,7 @@ const AddMarathon = () => {
           </label>
           <input type="text" name="title" placeholder="Marathon Title" className="input input-bordered" required />
         </div>
-        
+
         <div className="form-control">
           <label className="label">
             <span className="label-text">Start Registration Date</span>
@@ -113,7 +121,7 @@ const AddMarathon = () => {
           </label>
           <input type="text" name="image" placeholder="Image URL" className="input input-bordered" required />
         </div>
-        
+
         <div className="form-control mt-6">
           <button className="btn bg-red-600 text-white">Submit</button>
         </div>

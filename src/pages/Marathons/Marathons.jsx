@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import MarathonsCard from "../Home/MarathonsCard";
+import useTitle from "../../hooks/useTitle";
 
 
 const Marathons = () => {
+    useTitle();
     const [marathons, setMarathons] = useState([]);
 
     useEffect(() => {

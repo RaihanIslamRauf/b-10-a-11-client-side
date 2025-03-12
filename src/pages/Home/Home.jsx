@@ -1,3 +1,4 @@
+import useTitle from "../../hooks/useTitle";
 import Banner from "./Banner";
 import HomeMarathons from "./HomeMarathons";
 import JoinNow from "./JoinNow";
@@ -6,6 +7,7 @@ import UpcomingMarathons from "./UpcomingMarathons";
 
 
 const Home = () => {
+    useTitle();
     return (
         <div>
             <Banner></Banner>

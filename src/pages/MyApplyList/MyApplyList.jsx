@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import useTitle from "../../hooks/useTitle";
 
 const MyApplyList = () => {
-  const { user } = useAuth(); 
+  useTitle();
+  const { user } = useAuth();
   const [registrations, setRegistrations] = useState([]);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRegistration, setCurrentRegistration] = useState(null);
   const [form, setForm] = useState({
     marathonTitle: "",
@@ -17,21 +19,10 @@ const MyApplyList = () => {
   });
 
   useEffect(() => {
-    const fetchRegistrations = async () => {
-      if (user?.email) {
-        try {
-          const response = await axios.get(
-            `http://localhost:5000/registrations?email=${user.email}`
-          );
-          setRegistrations(response.data);
-        } catch (error) {
-          console.error("Error fetching registrations:", error);
-        }
-      }
-    };
-
-    if (user) {
-      fetchRegistrations();
+    if (user?.email) {
+      axios.get(`http://localhost:5000/registrations?email=${user.email}`)
+        .then((res) => setRegistrations(res.data))
+        .catch((error) => console.error("Error fetching registrations:", error));
     }
   }, [user]);
 
@@ -44,169 +35,119 @@ const MyApplyList = () => {
       lastName: registration.lastName,
       contactNumber: registration.contactNumber,
     });
-    setIsUpdateModalOpen(true);
+    setIsModalOpen(true);
   };
 
+  const updateRegistration = () => {
+    axios.put(`http://localhost:5000/registrations/${currentRegistration._id}`, form)
+      .then(() => {
+        setRegistrations(
+          registrations.map((r) => (r._id === currentRegistration._id ? { ...r, ...form } : r))
+        );
+        setIsModalOpen(false);
+        Swal.fire("Updated!", "The application has been updated.", "success");
+      })
+      .catch((error) => {
+        console.error("Error updating application:", error);
+        Swal.fire("Error!", "Failed to update application.", "error");
+      });
+  };
 
   const handleDelete = (registration) => {
-    setCurrentRegistration(registration);
-    setIsDeleteModalOpen(true);
-  };
-
- 
-  const updateRegistration = () => {
-    axios
-      .put(
-        `http://localhost:5000/registrations/${currentRegistration._id}`,
-        form
-      )
-      .then(() => {
-        setRegistrations(
-          registrations.map((r) =>
-            r._id === currentRegistration._id ? { ...r, ...form } : r
-          )
-        );
-        setIsUpdateModalOpen(false);
-      })
-      .catch((error) => {
-        console.error("Error updating registration:", error);
-      });
-  };
-
-  
-  const deleteRegistration = () => {
-    axios
-      .delete(
-        `http://localhost:5000/registrations/${currentRegistration._id}`
-      )
-      .then(() => {
-        setRegistrations(
-          registrations.filter((r) => r._id !== currentRegistration._id)
-        );
-        setIsDeleteModalOpen(false);
-      })
-      .catch((error) => {
-        console.error("Error deleting registration:", error);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:5000/registrations/${registration._id}`)
+          .then(() => {
+            setRegistrations(registrations.filter((r) => r._id !== registration._id));
+            Swal.fire("Deleted!", "The application has been deleted.", "success");
+          })
+          .catch((error) => {
+            console.error("Error deleting registration:", error);
+            Swal.fire("Error!", "Failed to delete application.", "error");
+          });
+      }
+    });
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4 text-center">My Apply List</h2>
-      <table className="min-w-full table-auto border-collapse">
-        <thead>
-          <tr className="border-b">
-            <th className="px-4 py-2 text-left">Marathon Title</th>
-            <th className="px-4 py-2 text-left">Start Date</th>
-            <th className="px-4 py-2 text-left">First Name</th>
-            <th className="px-4 py-2 text-left">Last Name</th>
-            <th className="px-4 py-2 text-center">Contact Number</th>
-            <th className="px-4 py-2 text-center">Actions</th> 
-          </tr>
-        </thead>
-        <tbody>
-          {registrations.map((registration) => (
-            <tr key={registration._id} className="border-b">
-              <td className="px-4 py-2">{registration.marathonTitle}</td>
-              <td className="px-4 py-2">{registration.startDate}</td>
-              <td className="px-4 py-2">{registration.firstName}</td>
-              <td className="px-4 py-2">{registration.lastName}</td>
-              <td className="px-4 py-2">{registration.contactNumber}</td>
-              <td className="px-4 py-2 flex justify-center space-x-4">
-                <button
-                  onClick={() => handleUpdate(registration)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                  Update
-                </button>
-                <button
-                  onClick={() => handleDelete(registration)}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </td>
+    <div className="">
+      <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-4 text-center">
+        My Apply List
+      </h2>
+      <div className="overflow-x-auto">
+        <table className="w-full border border-gray-700 text-white text-xs sm:text-sm">
+          <thead>
+            <tr className="bg-gray-800 text-white">
+              <th className="p-1 sm:p-2 border border-gray-700">Marathon Title</th>
+              <th className="p-1 sm:p-2 border border-gray-700">Start Date</th>
+              <th className="p-1 sm:p-2 border border-gray-700">First Name</th>
+              <th className="p-1 sm:p-2 border border-gray-700">Last Name</th>
+              <th className="p-1 sm:p-2 border border-gray-700">Contact</th>
+              <th className="p-1 sm:p-2 border border-gray-700">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {registrations.map((registration) => (
+              <tr key={registration._id} className="bg-gray-900 hover:bg-gray-800">
+                <td className="p-1 sm:p-2 border border-gray-700">{registration.marathonTitle}</td>
+                <td className="p-1 sm:p-2 border border-gray-700">{registration.startDate}</td>
+                <td className="p-1 sm:p-2 border border-gray-700">{registration.firstName}</td>
+                <td className="p-1 sm:p-2 border border-gray-700">{registration.lastName}</td>
+                <td className="p-1 sm:p-2 border border-gray-700">{registration.contactNumber}</td>
+                <td className="p-1 sm:p-2 border border-gray-700 flex lg:flex-row flex-col items-center justify-center space-y-1 sm:space-y-0 sm:space-x-2">
+                  <button
+                    onClick={() => handleUpdate(registration)}
+                    className="bg-blue-500 btn text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded hover:bg-blue-600"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={() => handleDelete(registration)}
+                    className="bg-red-500 btn text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      {/* Update Modal */}
-      {isUpdateModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-base-200 p-6 rounded-lg shadow-lg w-96">
-            <h3 className="text-xl font-semibold mb-4">Update Registration</h3>
-            <label className="block text-sm font-medium mb-2">Marathon Title</label>
-            <input
-              type="text"
-              value={form.marathonTitle}
-              onChange={(e) => setForm({ ...form, marathonTitle: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
-            />
-            <label className="block text-sm font-medium mb-2">Start Date</label>
-            <input
-              type="date"
-              value={form.startDate}
-              onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
-            />
-            <label className="block text-sm font-medium mb-2">First Name</label>
-            <input
-              type="text"
-              value={form.firstName}
-              onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
-            />
-            <label className="block text-sm font-medium mb-2">Last Name</label>
-            <input
-              type="text"
-              value={form.lastName}
-              onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
-            />
-            <label className="block text-sm font-medium mb-2">Contact Number</label>
-            <input
-              type="text"
-              value={form.contactNumber}
-              onChange={(e) => setForm({ ...form, contactNumber: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded mb-4"
-            />
-            <div className="flex justify-center space-x-4">
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
+            <h3 className="text-lg sm:text-xl font-semibold mb-4">Update Registration</h3>
+            {Object.keys(form).map((key) => (
+              <div key={key} className="mb-3">
+                <label className="block text-xs sm:text-sm font-medium mb-1 capitalize">
+                  {key.replace(/([A-Z])/g, " $1")}
+                </label>
+                <input
+                  type="text"
+                  value={form[key]}
+                  onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                  className="w-full px-3 py-1 sm:py-2 border border-gray-500 bg-gray-900 rounded text-xs sm:text-sm"
+                />
+              </div>
+            ))}
+            <div className="flex justify-between mt-4">
               <button
                 onClick={updateRegistration}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                className="bg-blue-500 text-white text-xs sm:text-sm px-3 py-1 sm:py-2 rounded hover:bg-blue-600"
               >
                 Update
               </button>
               <button
-                onClick={() => setIsUpdateModalOpen(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Delete Confirmation Modal */}
-      {isDeleteModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h3 className="text-xl font-semibold mb-4">Confirm Delete</h3>
-            <p className="mb-4 text-center">
-              Are you sure you want to delete this registration?
-            </p>
-            <div className="flex justify-center space-x-4">
-              <button
-                onClick={deleteRegistration}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => setIsDeleteModalOpen(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                onClick={() => setIsModalOpen(false)}
+                className="bg-gray-500 text-white text-xs sm:text-sm px-3 py-1 sm:py-2 rounded hover:bg-gray-600"
               >
                 Cancel
               </button>

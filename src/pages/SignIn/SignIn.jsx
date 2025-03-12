@@ -6,8 +6,10 @@ import loginLottieJSON from '../../assets/lottie/login.json';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import SocialLogin from '../../shared/SocialLogin';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const SignIn = () => {
+    useTitle();
     const { signInUser } = useContext(AuthContext);
     const navigate = useNavigate();
 

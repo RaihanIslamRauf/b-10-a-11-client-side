@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2"; 
+import useTitle from "../../hooks/useTitle";
 
 const MarathonRegister = () => {
+    useTitle();
     const { id } = useParams();
     const navigate = useNavigate();
-    const { user } = useAuth(); // Get logged-in user info
+    const { user } = useAuth(); 
 
     const [marathon, setMarathon] = useState(null);
     const [formData, setFormData] = useState({
@@ -42,19 +45,19 @@ const MarathonRegister = () => {
         e.preventDefault();
 
         if (!user?.email) {
-            alert("User email is missing. Please log in.");
+            Swal.fire("Error", "User email is missing. Please log in.", "error");
             return;
         }
 
         if (!formData.firstName || !formData.lastName || !formData.contactNumber) {
-            alert("Please fill all required fields.");
+            Swal.fire("Warning", "Please fill all required fields.", "warning");
             return;
         }
 
         const registrationData = {
             marathonId: id,
             marathonTitle: marathon.title,
-            startDate: marathon.marathonStartDate, 
+            startDate: marathon.marathonStartDate,
             email: user.email,
             ...formData,
         };
@@ -74,10 +77,14 @@ const MarathonRegister = () => {
                 headers: { "Content-Type": "application/json" },
             });
 
-            alert("Registration Successful!");
-            navigate("/dashboard/my-apply-list");
+            Swal.fire({
+                title: "Success!",
+                text: "Registration Successful!",
+                icon: "success",
+                confirmButtonColor: "#d32f2f",
+            }).then(() => navigate("/dashboard/my-apply-list"));
         } catch (err) {
-            alert(err.message);
+            Swal.fire("Error", err.message, "error");
         }
     };
 
@@ -85,7 +92,7 @@ const MarathonRegister = () => {
     if (error) return <p className="text-red-500">{error}</p>;
     if (!marathon) return <p>Marathon not found.</p>;
 
-    const formattedStartDate = new Date(marathon.marathonStartDate).toDateString(); 
+    const formattedStartDate = new Date(marathon.marathonStartDate).toDateString();
 
     return (
         <div className="max-w-lg mx-auto bg-base-100 shadow-md rounded-lg p-6 mt-10 mb-10">
@@ -190,7 +197,7 @@ const MarathonRegister = () => {
                 </div>
 
                 <div className="form-control mt-6">
-                    <button  className="btn bg-red-600 text-white w-full">
+                    <button className="btn bg-red-600 text-white w-full">
                         Submit Registration
                     </button>
                 </div>

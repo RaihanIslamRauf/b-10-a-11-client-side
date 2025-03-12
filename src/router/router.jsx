@@ -48,7 +48,7 @@ import MarathonRegister from "../pages/Marathons/MarathonRegister";
         
         {
           path: "dashboard",
-          element: <Dashboard></Dashboard>,
+          element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
           children: [
             {
               path: "add-marathon",

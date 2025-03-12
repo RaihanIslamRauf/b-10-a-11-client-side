@@ -1,10 +1,12 @@
+import useTitle from "../../hooks/useTitle";
 import Sidebar from "../Sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+  useTitle();
   return (
-    <div className="flex">
-      {/* Sidebar */}
+    <div className="flex flex-col md:flex-row min-h-screen">
+      {/* Sidebar at the top on mobile, left on larger screens */}
       <Sidebar />
 
       {/* Main Content Section */}
