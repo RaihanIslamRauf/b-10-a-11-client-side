@@ -20,7 +20,7 @@ const MyApplyList = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axios.get(`http://localhost:5000/registrations?email=${user.email}`)
+      axios.get(`https://b-10-a-11-server-side.vercel.app/registrations?email=${user.email}`)
         .then((res) => setRegistrations(res.data))
         .catch((error) => console.error("Error fetching registrations:", error));
     }
@@ -39,7 +39,7 @@ const MyApplyList = () => {
   };
 
   const updateRegistration = () => {
-    axios.put(`http://localhost:5000/registrations/${currentRegistration._id}`, form)
+    axios.put(`https://b-10-a-11-server-side.vercel.app/registrations/${currentRegistration._id}`, form)
       .then(() => {
         setRegistrations(
           registrations.map((r) => (r._id === currentRegistration._id ? { ...r, ...form } : r))
@@ -63,7 +63,7 @@ const MyApplyList = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/registrations/${registration._id}`)
+        axios.delete(`https://b-10-a-11-server-side.vercel.app/registrations/${registration._id}`)
           .then(() => {
             setRegistrations(registrations.filter((r) => r._id !== registration._id));
             Swal.fire("Deleted!", "The application has been deleted.", "success");

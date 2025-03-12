@@ -23,7 +23,7 @@ const MarathonRegister = () => {
     useEffect(() => {
         const fetchMarathonData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/marathons/${id}`);
+                const response = await fetch(`https://b-10-a-11-server-side.vercel.app/marathons/${id}`);
                 if (!response.ok) throw new Error("Failed to fetch marathon data");
                 const data = await response.json();
                 setMarathon(data);
@@ -63,7 +63,7 @@ const MarathonRegister = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/registrations", {
+            const response = await fetch("https://b-10-a-11-server-side.vercel.app/registrations", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(registrationData),
@@ -72,7 +72,7 @@ const MarathonRegister = () => {
             if (!response.ok) throw new Error("Registration failed");
 
             // Update total registration count
-            await fetch(`http://localhost:5000/marathons/${id}/updateRegistrationCount`, {
+            await fetch(`https://b-10-a-11-server-side.vercel.app/marathons/${id}/updateRegistrationCount`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
             });
