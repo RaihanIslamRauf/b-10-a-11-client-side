@@ -3,7 +3,7 @@
 RunTrack is a dynamic web application designed to streamline marathon event management. Whether you're an organizer managing events or a participant looking to register, RunTrack provides a seamless experience for all users.
 
 ## Live URL
-assignment-11-4d65a.web.app
+https://assignment-11-4d65a.web.app/
 
 ---
 
