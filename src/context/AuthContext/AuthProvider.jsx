@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
             // Send email to backend to receive JWT
             const userInfo = { email: currentUser.email };
             axios
-              .post("http://localhost:5000/jwt", userInfo, { withCredentials: true })
+              .post("https://b-10-a-11-server-side.vercel.app/jwt", userInfo, { withCredentials: true })
               .then((res) => {
                 console.log("login token", res.data);
                 setLoading(false);
@@ -72,7 +72,7 @@ const AuthProvider = ({ children }) => {
             setUser(null);
             axios
               .post(
-                "http://localhost:5000/logout",
+                "https://b-10-a-11-server-side.vercel.app/logout",
                 {},
                 {
                   withCredentials: true,

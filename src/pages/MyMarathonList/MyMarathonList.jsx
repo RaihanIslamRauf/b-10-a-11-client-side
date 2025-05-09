@@ -11,7 +11,7 @@ const MyMarathonsList = () => {
   const [form, setForm] = useState({ location: "", description: "" });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/marathons").then((res) => setMarathons(res.data));
+    axios.get("https://b-10-a-11-server-side.vercel.app/marathons").then((res) => setMarathons(res.data));
   }, []);
 
   const handleUpdate = (marathon) => {
@@ -31,7 +31,7 @@ const MyMarathonsList = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/marathons/${marathon._id}`).then(() => {
+        axios.delete(`https://b-10-a-11-server-side.vercel.app/marathons/${marathon._id}`).then(() => {
           setMarathons(marathons.filter((m) => m._id !== marathon._id));
           Swal.fire("Deleted!", "Your marathon has been deleted.", "success");
         });
@@ -40,7 +40,7 @@ const MyMarathonsList = () => {
   };
 
   const updateMarathon = () => {
-    axios.put(`http://localhost:5000/marathons/${currentMarathon._id}`, form).then(() => {
+    axios.put(`https://b-10-a-11-server-side.vercel.app/marathons/${currentMarathon._id}`, form).then(() => {
       setMarathons(marathons.map((m) => (m._id === currentMarathon._id ? { ...m, ...form } : m)));
       setIsModalOpen(false);
       Swal.fire("Updated!", "Marathon details have been updated.", "success");

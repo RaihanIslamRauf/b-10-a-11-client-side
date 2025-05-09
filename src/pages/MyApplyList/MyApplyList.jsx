@@ -3,12 +3,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useTitle from "../../hooks/useTitle";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyApplyList = () => {
   useTitle();
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure();
   const [registrations, setRegistrations] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentRegistration, setCurrentRegistration] = useState(null);
@@ -22,13 +20,13 @@ const MyApplyList = () => {
 
   useEffect(() => {
     if (user?.email) {
-      axiosSecure.get(`http://localhost:5000/registrations?email=${user.email}`,{
+      axios.get(`https://b-10-a-11-server-side.vercel.app/registrations?email=${user.email}`,{
         withCredentials: true
       })
         .then((res) => setRegistrations(res.data))
         .catch((error) => console.error("Error fetching registrations:", error));
     }
-  }, [user.email]);
+  }, [user]);
 
   const handleUpdate = (registration) => {
     setCurrentRegistration(registration);
@@ -43,7 +41,7 @@ const MyApplyList = () => {
   };
 
   const updateRegistration = () => {
-    axios.put(`http://localhost:5000/registrations/${currentRegistration._id}`, form)
+    axios.put(`https://b-10-a-11-server-side.vercel.app/registrations/${currentRegistration._id}`, form, {withCredentials: true})
       .then(() => {
         setRegistrations(
           registrations.map((r) => (r._id === currentRegistration._id ? { ...r, ...form } : r))
@@ -67,7 +65,7 @@ const MyApplyList = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/registrations/${registration._id}`)
+        axios.delete(`https://b-10-a-11-server-side.vercel.app/registrations/${registration._id}`,{withCredentials: true})
           .then(() => {
             setRegistrations(registrations.filter((r) => r._id !== registration._id));
             Swal.fire("Deleted!", "The application has been deleted.", "success");
