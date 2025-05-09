@@ -30,7 +30,7 @@ const AddMarathon = () => {
     };
 
     try {
-      const response = await fetch("https://b-10-a-11-server-side.vercel.app/marathons", {
+      const response = await fetch("http://localhost:5000/marathons", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

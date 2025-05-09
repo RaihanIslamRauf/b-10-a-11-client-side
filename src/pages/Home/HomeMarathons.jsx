@@ -5,7 +5,7 @@ const HomeMarathons = () => {
     const [marathons, setMarathons] = useState([]);
 
     useEffect(()=>{
-        fetch('https://b-10-a-11-server-side.vercel.app/marathons/home')
+        fetch('http://localhost:5000/marathons/home')
         .then(res => res.json())
         .then(data =>{
             setMarathons(data)

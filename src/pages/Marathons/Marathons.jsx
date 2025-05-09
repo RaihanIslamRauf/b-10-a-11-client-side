@@ -8,7 +8,7 @@ const Marathons = () => {
     const [marathons, setMarathons] = useState([]);
 
     useEffect(() => {
-        fetch('https://b-10-a-11-server-side.vercel.app/marathons')
+        fetch('http://localhost:5000/marathons')
             .then(res => res.json())
             .then(data => setMarathons(data))
             .catch(error => console.error("Error fetching marathons:", error));

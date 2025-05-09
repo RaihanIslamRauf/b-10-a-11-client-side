@@ -15,7 +15,7 @@ const MarathonDetails = () => {
     useEffect(() => {
         const fetchMarathonDetails = async () => {
             try {
-                const response = await fetch(`https://b-10-a-11-server-side.vercel.app/marathons/${id}`);
+                const response = await fetch(`http://localhost:5000/marathons/${id}`);
                 const data = await response.json();
                 setMarathon(data);
     

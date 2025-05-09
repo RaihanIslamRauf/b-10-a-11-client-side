@@ -11,6 +11,7 @@ import {
     updateProfile 
 } from "firebase/auth";
 import auth from '../../firebase/firebase.init';
+import axios from 'axios';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -51,21 +52,42 @@ const AuthProvider = ({ children }) => {
     // Listen for authentication state changes
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser({
-                    uid: currentUser.uid,
-                    email: currentUser.email,
-                    displayName: currentUser.displayName || "User",
-                    photoURL: currentUser.photoURL || "",
-                });
-            } else {
-                setUser(null);
-            }
-            setLoading(false);
+          if (currentUser) {
+            setUser({
+              uid: currentUser.uid,
+              email: currentUser.email,
+              displayName: currentUser.displayName || "User",
+              photoURL: currentUser.photoURL || "",
+            });
+      
+            // Send email to backend to receive JWT
+            const userInfo = { email: currentUser.email };
+            axios
+              .post("http://localhost:5000/jwt", userInfo, { withCredentials: true })
+              .then((res) => {
+                console.log("login token", res.data);
+                setLoading(false);
+              });
+          } else {
+            setUser(null);
+            axios
+              .post(
+                "http://localhost:5000/logout",
+                {},
+                {
+                  withCredentials: true,
+                }
+              )
+              .then((res) => {
+                console.log("logout", res.data);
+                setLoading(false);
+              });
+          }
         });
-
+      
         return () => unsubscribe();
-    }, []);
+      }, []);
+      
 
     // Provide authentication context
     const authInfo = {
