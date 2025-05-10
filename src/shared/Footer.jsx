@@ -5,14 +5,14 @@ import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white p-10">
-      <div className="footer lg:flex-row flex-col justify-between items-start gap-8">
+    <footer className="bg-[#1A2526] text-white p-10">
+      <div className="px-4 md:px-8 footer lg:flex-row flex-col justify-between items-start gap-8"> {/* Added px-4 md:px-8 */}
         {/* Brand Section */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Runtrack Logo" className="w-[30px]" />
           <h1 className="text-[20px] text-red-500 font-bold italic">Runtrack</h1>
         </div>
-        <p className="text-gray-400 max-w-sm">
+        <p className="text-white max-w-sm">
           Runtrack is your ultimate platform for marathon management, providing seamless event registration, tracking, and results.
         </p>
 

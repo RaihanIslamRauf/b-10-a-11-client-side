@@ -50,7 +50,7 @@ const SignIn = () => {
     };
 
     return (
-        <div className="min-h-screen bg-base-200 p-4 flex flex-col md:flex-row justify-center items-center gap-10">
+        <div className="min-h-screen bg-gray-900 p-4 flex flex-col md:flex-row justify-center items-center gap-10">
                 <div className="card bg-base-100 w-full max-w-lg shrink-0 rounded-md p-10">
                     <h1 className="mt-4 text-2xl text-center font-bold text-white">Login Here</h1>
                     <form onSubmit={handleSignIn} className="card-body">

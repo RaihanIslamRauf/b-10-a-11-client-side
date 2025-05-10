@@ -5,18 +5,18 @@ import JoinNow from "./JoinNow";
 import Testimonials from "./Testimonials";
 import UpcomingMarathons from "./UpcomingMarathons";
 
-
 const Home = () => {
-    useTitle();
-    return (
-        <div>
-            <Banner></Banner>
-            <HomeMarathons></HomeMarathons>
-            <UpcomingMarathons></UpcomingMarathons>
-            <JoinNow></JoinNow>
-            <Testimonials></Testimonials>
-        </div>
-    );
+  useTitle();
+
+  return (
+    <div className="px-4 md:px-8"> {/* Added padding to Home component */}
+      <Banner />
+      <HomeMarathons />
+      <UpcomingMarathons />
+      <JoinNow />
+      <Testimonials />
+    </div>
+  );
 };
 
 export default Home;
