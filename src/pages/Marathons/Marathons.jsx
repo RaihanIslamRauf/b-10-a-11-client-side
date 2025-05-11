@@ -32,7 +32,7 @@ const Marathons = () => {
   );
 
   return (
-    <div className="mx-auto py-6 px-4">
+    <div className="mx-auto mt-4 mb-4 py-6 px-4">
       <h1 className="text-4xl font-bold text-white text-center mb-8">All Marathons</h1>
 
       {/* Search and Sort Section */}

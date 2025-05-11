@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const Dashboard = () => {
   useTitle();
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen mt-4 mb-4">
       {/* Sidebar at the top on mobile, left on larger screens */}
       <Sidebar />
 
