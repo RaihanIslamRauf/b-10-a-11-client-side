@@ -14,6 +14,8 @@ import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import MarathonDetails from "../pages/Marathons/MarathonDetails";
 import MarathonRegister from "../pages/Marathons/MarathonRegister";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
   const router = createBrowserRouter([
     {
@@ -63,6 +65,14 @@ import MarathonRegister from "../pages/Marathons/MarathonRegister";
               element: <MyApplyList></MyApplyList>
             }
           ]
+        },
+        {
+          path: "aboutUs",
+          element: <AboutUs></AboutUs>
+        },
+        {
+          path: "contactUs",
+          element: <ContactUs></ContactUs>
         }
       ]
     },

@@ -49,6 +49,8 @@ const Navbar = () => {
               <NavLink className={navLinkStyle} to="/">Home</NavLink>
               <NavLink className={navLinkStyle} to="/marathons">Marathons</NavLink>
               {user && <NavLink className={navLinkStyle} to="/dashboard">Dashboard</NavLink>}
+              <NavLink className={navLinkStyle} to="/aboutUs">About Us</NavLink>
+              <NavLink className={navLinkStyle} to="/contactUs">Contact Us</NavLink>
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl gap-1">
@@ -63,6 +65,8 @@ const Navbar = () => {
             <NavLink className={navLinkStyle} to="/">Home</NavLink>
             <NavLink className={navLinkStyle} to="/marathons">Marathons</NavLink>
             {user && <NavLink className={navLinkStyle} to="/dashboard">Dashboard</NavLink>}
+            <NavLink className={navLinkStyle} to="/aboutUs">About Us</NavLink>
+            <NavLink className={navLinkStyle} to="/contactUs">Contact Us</NavLink>
           </ul>
 
           {user ? (
