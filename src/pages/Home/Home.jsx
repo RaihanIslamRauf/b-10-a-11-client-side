@@ -2,6 +2,7 @@ import useTitle from "../../hooks/useTitle";
 import Banner from "./Banner";
 import HomeMarathons from "./HomeMarathons";
 import JoinNow from "./JoinNow";
+import StatsCount from "./StatsCount";
 import Testimonials from "./Testimonials";
 import UpcomingMarathons from "./UpcomingMarathons";
 
@@ -14,6 +15,7 @@ const Home = () => {
       <HomeMarathons />
       <UpcomingMarathons />
       <JoinNow />
+      <StatsCount />
       <Testimonials />
     </div>
   );
