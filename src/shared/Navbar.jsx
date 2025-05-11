@@ -1,17 +1,36 @@
 import { FaBars } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOutUser()
-      .then(() => console.log("Successful sign out"))
-      .catch((error) => console.log("Failed to sign out", error));
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Logged Out!",
+          text: "You have been successfully logged out.",
+          timer: 2000,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("Failed to sign out", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong while logging out!",
+        });
+      });
   };
 
   const navLinkStyle = ({ isActive }) =>

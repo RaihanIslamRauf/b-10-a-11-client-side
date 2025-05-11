@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext/AuthContext";
 import { FaGoogle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2'; // ✅ Import SweetAlert2
+import Swal from 'sweetalert2'; 
 
 const SocialLogin = () => {
   const { signInWithGoogle } = useContext(AuthContext);
@@ -13,7 +13,6 @@ const SocialLogin = () => {
       .then((result) => {
         console.log(result);
 
-        // ✅ Show SweetAlert success message
         Swal.fire({
           icon: 'success',
           title: 'Login Successful!',
@@ -22,7 +21,6 @@ const SocialLogin = () => {
           timer: 2000,
         });
 
-        // ⏩ Redirect after delay
         setTimeout(() => {
           navigate('/');
         }, 2000);
@@ -30,7 +28,6 @@ const SocialLogin = () => {
       .catch((error) => {
         console.log(error);
 
-        // ❌ Show SweetAlert error message
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
