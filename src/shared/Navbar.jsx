@@ -16,7 +16,9 @@ const Navbar = () => {
 
   const navLinkStyle = ({ isActive }) =>
     `font-bold text-sm transition-all duration-300 px-3 py-2 rounded-md ${
-      isActive ? "text-red-500" : "text-white hover:text-red-400 hover:bg-[#2c3b3c]"
+      isActive
+        ? "text-red-500 border border-red-500"
+        : "text-white hover:text-red-400 hover:bg-[#2c3b3c]"
     }`;
 
   useEffect(() => {
