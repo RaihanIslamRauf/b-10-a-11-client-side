@@ -12,7 +12,7 @@ const Footer = () => {
           <img src={logo} alt="Runtrack Logo" className="w-[30px]" />
           <h1 className="text-[20px] text-red-500 font-bold italic">Runtrack</h1>
         </div>
-        <p className="text-white max-w-sm">
+        <p className="text-white max-w-sm ml-2">
           Runtrack is your ultimate platform for marathon management, providing seamless event registration, tracking, and results.
         </p>
 

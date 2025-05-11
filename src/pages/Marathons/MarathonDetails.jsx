@@ -36,7 +36,7 @@ const MarathonDetails = () => {
 
     return (
         <div className="max-w-4xl mx-auto bg-base-100 shadow-lg rounded-lg py-6 px-4 mt-10 mb-10">
-            <img src={marathon.image} alt={marathon.title} className="w-full h-60 object-cover rounded-md"  style={{ objectPosition: "50% 20%" }}/>
+            <img src={marathon.image} alt={marathon.title} className="w-full h-60 object-cover rounded-md"  style={{ objectPosition: "50% 10%" }}/>
             <h1 className="text-3xl text-gray-100 font-bold mt-4">{marathon.title}</h1>
             <p className="flex items-center gap-2 text-gray-300"> <FaMapMarkerAlt className="text-red-400" />  {marathon.location}</p>
             <p className="text-gray-400">
