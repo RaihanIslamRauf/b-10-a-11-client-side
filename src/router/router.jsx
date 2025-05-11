@@ -16,6 +16,8 @@ import MarathonDetails from "../pages/Marathons/MarathonDetails";
 import MarathonRegister from "../pages/Marathons/MarathonRegister";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "../pages/TermsOfService/TermsOfService";
 
   const router = createBrowserRouter([
     {
@@ -73,6 +75,14 @@ import ContactUs from "../pages/ContactUs/ContactUs";
         {
           path: "contactUs",
           element: <ContactUs></ContactUs>
+        },
+        {
+          path: "privacyPolicy",
+          element: <PrivacyPolicy></PrivacyPolicy>
+        },
+        {
+          path: "terms",
+          element: <TermsOfService></TermsOfService>
         }
       ]
     },

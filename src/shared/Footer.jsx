@@ -1,12 +1,11 @@
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoMail } from "react-icons/io5";
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom"; // Make sure you're using react-router
 
 const Footer = () => {
   return (
     <footer className="bg-[#1A2526] text-white p-10">
-      <div className="px-4 md:px-8 footer lg:flex-row flex-col justify-between items-start gap-8"> {/* Added px-4 md:px-8 */}
+      <div className="px-4 md:px-8 footer lg:flex-row flex-col justify-between items-start gap-8">
         {/* Brand Section */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Runtrack Logo" className="w-[30px]" />
@@ -20,11 +19,12 @@ const Footer = () => {
         <nav>
           <h6 className="footer-title text-lg font-semibold mb-3 text-red-500">Quick Links</h6>
           <ul className="flex flex-col gap-2">
-            <li><a href="#about" className="hover:text-red-500">About Us</a></li>
-            <li><a href="#events" className="hover:text-red-500">Upcoming Marathons</a></li>
-            <li><a href="#faq" className="hover:text-red-500">FAQs</a></li>
-            <li><a href="#privacy" className="hover:text-red-500">Privacy Policy</a></li>
-            <li><a href="#terms" className="hover:text-red-500">Terms of Service</a></li>
+            <li>
+              <Link to="/privacyPolicy" className="hover:text-red-500">Privacy Policy</Link>
+            </li>
+            <li>
+              <Link to="/terms" className="hover:text-red-500">Terms of Service</Link>
+            </li>
           </ul>
         </nav>
 
@@ -46,25 +46,9 @@ const Footer = () => {
             </a>
           </div>
         </nav>
-
-        {/* Contact Us Section */}
-        <nav>
-          <h6 className="footer-title text-lg font-semibold mb-3 text-red-500">Contact Us</h6>
-          <div className="flex flex-col gap-2">
-            <p className="flex items-center gap-2">
-              <FaPhoneAlt />
-              <span>+1 800 RUN-TRACK</span>
-            </p>
-            <p className="flex items-center gap-2">
-              <IoMail />
-              <span>support@runtrack.com</span>
-            </p>
-            <p>Address: 5678 Marathon Street, Runners CityRC 12345</p>
-          </div>
-        </nav>
       </div>
 
-      {/* Copyright Section */}
+      {/* Copyright */}
       <div className="text-center mt-6 text-gray-400">
         <p className="lg:text-[14px] text-[13px]">
           Copyright © {new Date().getFullYear()} - All rights reserved by Runtrack.
