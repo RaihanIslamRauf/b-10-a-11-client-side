@@ -4,7 +4,7 @@ const AboutUs = () => {
      return (
     <div className="bg-gray-900 text-white px-6 py-12">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-red-500 mb-6">About Us</h1>
+        <h1 className="text-4xl font-bold text-center text-red-600 mb-6">About Us</h1>
         <p className="text-lg text-center text-gray-300 mb-8">
           Welcome to <span className="text-white font-semibold">RunTrack</span> — your gateway to the most exciting marathon events around the world.
         </p>

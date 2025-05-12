@@ -32,7 +32,7 @@ const MarathonsCard = ({ marathon }) => {
         
         <div className="card-actions justify-end">
           <Link to={`/marathons/${_id}`}>
-            <button className="btn bg-red-600 text-white hover:bg-red-700 shadow-md transition-all rounded-md px-2 py-1 ">
+            <button className="btn bg-red-600 text-white hover:bg-red-700 shadow-md transition-all rounded-md px-4 py-2 ">
               See Details
             </button>
           </Link>
