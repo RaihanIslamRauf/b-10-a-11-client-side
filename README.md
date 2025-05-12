@@ -27,7 +27,7 @@
   Get instant responses for actions using toast notifications and confirmation modals.
 
 - **Responsive Design**  
-  Fully mobile-optimized layout for seamless experience on any device.
+  Fully mobile and tablet-optimized layout for seamless experience on any device.
 
 ---
 
@@ -57,5 +57,49 @@
 ```bash
 git clone https://github.com/RaihanIslamRauf/b-10-a-11-client-side
 cd b-10-a-11-client-side
+
+### 2. Install Dependencies
+```bash
+npm install
+
+### 3. Import .env file
+
+### 4. Start the Application 
+
+### Frontend:
+```bash
+npm run dev
+
+### Backend:
+```bash
+nodemon index.js
+
+## 🌐 Live Link
+
+🔗 [RunTrack Live Site](https://assignment-11-4d65a.web.app/)
+
+## 🔐 Default Credentials 
+
+No default credentials are required.  
+You can sign up with your own email and password through the app.
+
+## 🚀 Future Enhancements
+
+- **Leaderboard System**  
+  Add rankings based on user performance and completion times.
+
+- **Event Analytics Dashboard**  
+  Provide organizers with insights into registration trends and participant stats.
+
+- **Social Media Sharing**  
+  Allow users to share their registrations or results on social platforms.
+
+- **Multi-role Support**  
+  Introduce roles like admin or organizer for better control and moderation.
+
+- **Push Notifications**  
+  Send reminders or updates for registered events.
+
+
 
 
