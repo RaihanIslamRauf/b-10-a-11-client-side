@@ -54,14 +54,16 @@
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/RaihanIslamRauf/b-10-a-11-client-side
 cd b-10-a-11-client-side
+```bash
 
 ### 2. Install Dependencies
 ```bash
 npm install
-
+```bash
 ### 3. Import .env file
 
 ### 4. Start the Application 
@@ -69,10 +71,12 @@ npm install
 ### Frontend:
 ```bash
 npm run dev
+```bash
 
 ### Backend:
 ```bash
 nodemon index.js
+```bash
 
 ## 🌐 Live Link
 
