@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import MarathonsCard from "../Home/MarathonsCard";
 import useTitle from "../../hooks/useTitle";
 import { FaSearch } from 'react-icons/fa'; 
-import { BsSortAlphaUp, BsFillCalendarDateFill, BsFillPeopleFill } from 'react-icons/bs'; 
 
 const Marathons = () => {
   useTitle();
@@ -17,7 +16,6 @@ const Marathons = () => {
       .catch((error) => console.error("Error fetching marathons:", error));
   }, []);
 
-  // Correct sorting using actual field names from MongoDB
   const sortedMarathons = [...marathons].sort((a, b) => {
     if (sortBy === "dateAsc") return new Date(a.marathonStartDate) - new Date(b.marathonStartDate);
     if (sortBy === "dateDesc") return new Date(b.marathonStartDate) - new Date(a.marathonStartDate);
@@ -26,7 +24,6 @@ const Marathons = () => {
     return 0;
   });
 
-  // Search functionality: filter marathons based on the search term
   const filteredMarathons = sortedMarathons.filter((marathon) =>
     marathon.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -36,40 +33,33 @@ const Marathons = () => {
       <h1 className="text-4xl font-bold text-white text-center mb-8">All Marathons</h1>
 
       {/* Search and Sort Section */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         {/* Search Input */}
-        <div className="relative w-1/2 md:w-1/3 lg:w-1/4">
+        <div className="relative w-full sm:w-1/2 md:w-1/3">
           <input
             type="text"
             placeholder="Search by Marathon Name"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="p-3 pl-10 w-full rounded-md text-white focus:outline-none"
-            style={{ backgroundColor: "#333" }} 
+            style={{ backgroundColor: "#333" }}
           />
           <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
 
-        <div>
+        {/* Sort Dropdown */}
+        <div className="w-full sm:w-auto">
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="p-2 px-2 rounded-md text-white flex items-center"
-            style={{ backgroundColor: "#333" }} 
+            className="p-3 w-full sm:w-auto rounded-md text-white"
+            style={{ backgroundColor: "#333" }}
           >
             <option value="">Sort By</option>
-            <option value="dateAsc">
-              <BsFillCalendarDateFill className="mr-2" /> Date (Soonest First)
-            </option>
-            <option value="dateDesc">
-              <BsFillCalendarDateFill className="mr-2" /> Date (Latest First)
-            </option>
-            <option value="registrations">
-              <BsFillPeopleFill className="mr-2" /> Most Popular
-            </option>
-            <option value="name">
-              <BsSortAlphaUp className="mr-2" /> Name (A-Z)
-            </option>
+            <option value="dateAsc">📅 Date (Soonest First)</option>
+            <option value="dateDesc">📅 Date (Latest First)</option>
+            <option value="registrations">👥 Most Popular</option>
+            <option value="name">🔤 Name (A-Z)</option>
           </select>
         </div>
       </div>
