@@ -39,7 +39,7 @@ import TermsOfService from "../pages/TermsOfService/TermsOfService";
         },
         {
           path: "marathons",
-          element: <PrivateRoute><Marathons></Marathons></PrivateRoute>
+          element: <Marathons></Marathons>
         },
         {
           path: "/marathons/:id",

@@ -13,7 +13,11 @@ const useTitle = () => {
       "/dashboard": "Dashboard - RunTrack",
       "/dashboard/add-marathon": "Add Marathon - RunTrack",
       "/dashboard/my-marathons": "My Marathons - RunTrack",
-      "/dashboard/my-apply-list": "My Apply List - RunTrack"
+      "/dashboard/my-apply-list": "My Apply List - RunTrack",
+      "/aboutUs": "About Us - RunTrack",
+      "/contactUs": "Contact Us - RunTrack",
+      "/terms": "Terms Of Service - RunTrack",
+      "/privacyPolicy": "Privacy Policy - RunTrack"
     };
 
     if (location.pathname.startsWith("/marathons/")) {

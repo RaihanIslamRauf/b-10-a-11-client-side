@@ -1,6 +1,8 @@
+import useTitle from "../../hooks/useTitle";
 
 
 const AboutUs = () => {
+     useTitle();
      return (
     <div className="bg-gray-900 text-white px-6 py-12">
       <div className="max-w-5xl mx-auto">

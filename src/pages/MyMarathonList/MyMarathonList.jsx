@@ -54,8 +54,8 @@ const MyMarathonsList = () => {
       </h2>
 
       {/* Responsive Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full lg:min-w-[500px]  border-collapse">
+      <div className="overflow-x-auto rounded-lg shadow-md border border-gray-700">
+        <table className="w-full min-w-[500px] border-collapse">
           <thead>
             <tr className="border-b bg-gray-800 text-white">
               <th className="px-4 py-2 text-left">Location</th>
@@ -66,8 +66,8 @@ const MyMarathonsList = () => {
           <tbody>
             {marathons.map((marathon) => (
               <tr key={marathon._id} className="border-b bg-gray-700 text-white">
-                <td className="px-4 py-2">{marathon.location}</td>
-                <td className="px-4 py-2">{marathon.description}</td>
+                <td className="px-4 py-2 break-words">{marathon.location}</td>
+                <td className="px-4 py-2 break-words">{marathon.description}</td>
                 <td className="px-4 py-2 flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
                   <button
                     onClick={() => handleUpdate(marathon)}
@@ -90,7 +90,7 @@ const MyMarathonsList = () => {
 
       {/* Update Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
           <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-full max-w-md mx-4">
             <h3 className="text-xl font-semibold mb-4">Update Marathon</h3>
             <label className="block text-sm font-medium mb-2">Location</label>
@@ -99,6 +99,7 @@ const MyMarathonsList = () => {
               value={form.location}
               onChange={(e) => setForm({ ...form, location: e.target.value })}
               className="w-full px-4 py-2 border border-gray-500 bg-gray-900 rounded mb-4"
+              placeholder="Enter location"
             />
             <label className="block text-sm font-medium mb-2">Description</label>
             <input
@@ -106,6 +107,7 @@ const MyMarathonsList = () => {
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               className="w-full px-4 py-2 border border-gray-500 bg-gray-900 rounded mb-4"
+              placeholder="Enter description"
             />
             <div className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
               <button

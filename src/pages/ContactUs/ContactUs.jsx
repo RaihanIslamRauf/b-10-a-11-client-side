@@ -1,10 +1,12 @@
 import Swal from "sweetalert2";
+import useTitle from "../../hooks/useTitle";
 
 const ContactUs = () => {
+  
+  useTitle();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Optionally validate or collect form data here
 
     Swal.fire({
       icon: "success",

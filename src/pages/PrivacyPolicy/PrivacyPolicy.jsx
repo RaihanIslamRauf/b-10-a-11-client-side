@@ -1,4 +1,9 @@
+import useTitle from "../../hooks/useTitle";
+
 const PrivacyPolicy = () => {
+  
+  useTitle();
+
   return (
     <div className="text-white min-h-screen py-10 px-4 md:px-16">
       <h1 className="text-3xl font-bold text-red-500 mb-6">Privacy Policy</h1>
