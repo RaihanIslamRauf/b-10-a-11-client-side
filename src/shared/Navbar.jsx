@@ -117,7 +117,7 @@ const Navbar = () => {
             <img src={logo} className="w-5 sm:w-6" alt="Runtrack Logo" />
             <h1
               className="text-red-500 font-bold italic
-              text-[14px] sm:text-[20px] lg:text-[24px] leading-none"
+              text-[14px] sm:text-[20px] lg:text-[20px] leading-none"
             >
               Runtrack
             </h1>

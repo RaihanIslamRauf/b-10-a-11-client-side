@@ -1,6 +1,7 @@
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+import { SiX } from "react-icons/si"; // Import X icon
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -35,8 +36,8 @@ const Footer = () => {
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-500">
               <FaFacebookF size={24} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-500">
-              <FaTwitter size={24} />
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-500">
+              <SiX size={24} />
             </a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-500">
               <FaInstagram size={24} />
